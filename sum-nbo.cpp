@@ -10,10 +10,14 @@ void btosum(int num, char *file[]) {
         if (pFile == NULL)
         {
             printf("error\n");
-            return -1;
+            continue;
         }
         uint32_t b;
-        fread(&b, sizeof(uint32_t), 1, pFile);
+        if(fread(&b, sizeof(uint32_t), 1, pFile) != 1)
+        {
+            printf("4 byte error\n");
+            continue;
+        }
         b = htonl(b);
         printf("%d(%#010x) ", b, b);
         sum += b;
